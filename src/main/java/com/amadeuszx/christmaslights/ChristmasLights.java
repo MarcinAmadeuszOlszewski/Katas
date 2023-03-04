@@ -8,19 +8,19 @@ import java.util.Arrays;
 public class ChristmasLights {
     private final Boolean[][] lights = new Boolean[1000][1000];
 
-    void turnOn(int x, int y) {
-        lights[x][y] = Boolean.TRUE;
+    void turnOn(Point p) {
+        lights[p.x()][p.y()] = Boolean.TRUE;
     }
 
-    void turnOff(int x, int y) {
-        lights[x][y] = Boolean.FALSE;
+    void turnOff(Point p) {
+        lights[p.x()][p.y()] = Boolean.FALSE;
     }
 
-    void toggle(int x, int y) {
-        if (lights[x][y] == null) {
-            lights[x][y] = Boolean.TRUE;
+    void toggle(Point p) {
+        if (lights[p.x()][p.y()] == null) {
+            lights[p.x()][p.y()] = Boolean.TRUE;
         } else {
-            lights[x][y] = !lights[x][y];
+            lights[p.x()][p.y()] = !lights[p.x()][p.y()];
         }
     }
 
