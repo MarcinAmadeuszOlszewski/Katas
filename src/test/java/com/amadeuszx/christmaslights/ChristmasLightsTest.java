@@ -67,6 +67,36 @@ class ChristmasLightsTest {
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> christmasLights.turnOff(x, y));
     }
 
+    @Test
+    void toggleWhenWasntSetReturnOne() {
+        christmasLights.toggle(5, 5);
+        assertEquals(1, christmasLights.count());
+    }
+
+    @Test
+    void toggleWhenWasSetToOffReturnOne() {
+        christmasLights.turnOff(5, 5);
+        assertEquals(0, christmasLights.count());
+
+        christmasLights.toggle(5, 5);
+        assertEquals(1, christmasLights.count());
+    }
+
+    @Test
+    void toggleWhenWasSetToOnReturnZero() {
+        christmasLights.turnOn(5, 5);
+        assertEquals(1, christmasLights.count());
+
+        christmasLights.toggle(5, 5);
+        assertEquals(0, christmasLights.count());
+    }
+
+    @ParameterizedTest
+    @MethodSource("cornersExc")
+    void toggleIndexOutOfBoudnException(int x, int y) {
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> christmasLights.toggle(x, y));
+    }
+
     private static Stream<Arguments> corners() {
         return Stream.of(
                 Arguments.of(0, 0),
