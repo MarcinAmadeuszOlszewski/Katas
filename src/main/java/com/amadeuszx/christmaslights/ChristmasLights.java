@@ -32,4 +32,12 @@ public class ChristmasLights {
                 .filter(light -> light)
                 .count();
     }
+
+    public void turnOn(Point begin, Point end) {
+        for (int x = begin.x(); x <= end.x(); x++) {
+            for (int y = begin.y(); y <= end.y(); y++) {
+                turnOn(new Point(x, y));
+            }
+        }
+    }
 }
