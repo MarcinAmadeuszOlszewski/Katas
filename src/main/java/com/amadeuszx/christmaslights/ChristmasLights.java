@@ -8,8 +8,12 @@ import java.util.Arrays;
 public class ChristmasLights {
     private final Boolean[][] lights = new Boolean[1000][1000];
 
-    void turnOne(int x, int y) {
+    void turnOn(int x, int y) {
         lights[x][y] = Boolean.TRUE;
+    }
+
+    void turnOff(int x, int y) {
+        lights[x][y] = Boolean.FALSE;
     }
 
     int count() {

@@ -22,14 +22,49 @@ class ChristmasLightsTest {
     @ParameterizedTest
     @MethodSource("corners")
     void turnOnOneWhichWasOff(int x, int y) {
-        christmasLights.turnOne(x, y);
+        christmasLights.turnOn(x, y);
+        assertEquals(1, christmasLights.count());
+    }
+
+    @Test
+    void multipleOnNothingChange() {
+        christmasLights.turnOn(5, 5);
+        christmasLights.turnOn(5, 5);
         assertEquals(1, christmasLights.count());
     }
 
     @ParameterizedTest
     @MethodSource("cornersExc")
-    void indexOutOfBoudnException(int x, int y) {
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> christmasLights.turnOne(x, y));
+    void turnOnIndexOutOfBoudnException(int x, int y) {
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> christmasLights.turnOn(x, y));
+    }
+
+    @Test
+    void turnOffWhenWasntSetReturnZero() {
+        christmasLights.turnOff(5, 5);
+        assertEquals(0, christmasLights.count());
+    }
+
+    @Test
+    void turnOffDisableField() {
+        christmasLights.turnOn(5, 5);
+        assertEquals(1, christmasLights.count());
+
+        christmasLights.turnOff(5, 5);
+        assertEquals(0, christmasLights.count());
+    }
+
+    @Test
+    void multipleOffNothingChange() {
+        christmasLights.turnOff(5, 5);
+        christmasLights.turnOff(5, 5);
+        assertEquals(0, christmasLights.count());
+    }
+
+    @ParameterizedTest
+    @MethodSource("cornersExc")
+    void turnOffIndexOutOfBoudnException(int x, int y) {
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> christmasLights.turnOff(x, y));
     }
 
     private static Stream<Arguments> corners() {
