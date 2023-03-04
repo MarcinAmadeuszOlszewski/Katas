@@ -88,6 +88,14 @@ class ChristmasLightsTest {
         assertEquals(1_000_000, christmasLights.count());
     }
 
+    @Test
+    @Description("turn off 499,499 through 500,500 would turn off (or leave off) the middle four lights.")
+    void turnOffRange() {
+        turnONRange();
+        christmasLights.turnOff(new Point(499, 499), new Point(500, 500));
+        assertEquals(999_996, christmasLights.count());
+    }
+
     private static Stream<Arguments> corners() {
         return Stream.of(
                 Arguments.of(new Point(0, 0)),

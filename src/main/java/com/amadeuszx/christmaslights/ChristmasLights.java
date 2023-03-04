@@ -40,4 +40,12 @@ public class ChristmasLights {
             }
         }
     }
+
+    public void turnOff(Point begin, Point end) {
+        for (int x = begin.x(); x <= end.x(); x++) {
+            for (int y = begin.y(); y <= end.y(); y++) {
+                turnOff(new Point(x, y));
+            }
+        }
+    }
 }
