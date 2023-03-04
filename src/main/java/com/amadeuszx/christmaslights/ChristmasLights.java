@@ -1,6 +1,7 @@
 package com.amadeuszx.christmaslights;
 
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 /**
  * https://kata-log.rocks/christmas-lights-kata
@@ -34,25 +35,21 @@ public class ChristmasLights {
     }
 
     public void turnOn(Point begin, Point end) {
-        for (int x = begin.x(); x <= end.x(); x++) {
-            for (int y = begin.y(); y <= end.y(); y++) {
-                turnOn(new Point(x, y));
-            }
-        }
+        iterate(begin, end, this::turnOn);
     }
 
     public void turnOff(Point begin, Point end) {
-        for (int x = begin.x(); x <= end.x(); x++) {
-            for (int y = begin.y(); y <= end.y(); y++) {
-                turnOff(new Point(x, y));
-            }
-        }
+        iterate(begin, end, this::turnOff);
     }
 
     public void toggle(Point begin, Point end) {
+        iterate(begin, end, this::toggle);
+    }
+
+    private void iterate(Point begin, Point end, Consumer<Point> change) {
         for (int x = begin.x(); x <= end.x(); x++) {
             for (int y = begin.y(); y <= end.y(); y++) {
-                toggle(new Point(x, y));
+                change.accept(new Point(x, y));
             }
         }
     }
