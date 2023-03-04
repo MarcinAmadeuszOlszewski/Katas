@@ -31,12 +31,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.0</version>
-                <configuration>
-                    <release>17</release>
-                    <source>16</source>
-                    <target>16</target>
-                </configuration>
+                <version>3.10.1</version>
             </plugin>
 
             <plugin>
@@ -46,9 +41,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
                 <configuration>
                 <mutators>
                     <mutator>ALL</mutator>
-<!--                    <mutator>VOID_METHOD_CALLS</mutator>-->
-<!--                    <mutator>RETURN_VALS</mutator>-->
-<!--                    <mutator>NON_VOID_METHOD_CALLS</mutator>-->
+
                 </mutators>
             </configuration>
             </plugin>
