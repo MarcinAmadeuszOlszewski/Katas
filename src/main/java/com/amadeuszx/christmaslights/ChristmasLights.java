@@ -7,31 +7,34 @@ import java.util.function.Consumer;
  * https://kata-log.rocks/christmas-lights-kata
  */
 public class ChristmasLights {
-    private final Boolean[][] lights = new Boolean[1000][1000];
+    private final Integer[][] lights = new Integer[1000][1000];
 
     public ChristmasLights() {
-        for (Boolean[] b : lights) {
-            Arrays.fill(b, Boolean.FALSE);
+        for (Integer[] b : lights) {
+            Arrays.fill(b, 0);
         }
     }
 
     void turnOn(Point p) {
-        lights[p.x()][p.y()] = Boolean.TRUE;
+        lights[p.x()][p.y()]++;
     }
 
     void turnOff(Point p) {
-        lights[p.x()][p.y()] = Boolean.FALSE;
+        lights[p.x()][p.y()]--;
+        if (lights[p.x()][p.y()] < 0) {
+            lights[p.x()][p.y()] = 0;
+        }
     }
 
     void toggle(Point p) {
-        lights[p.x()][p.y()] = !lights[p.x()][p.y()];
+        lights[p.x()][p.y()] += 2;
     }
 
     int count() {
-        return (int) Arrays.stream(lights)
+        return Arrays.stream(lights)
                 .flatMap(Arrays::stream)
-                .filter(light -> light)
-                .count();
+                .mapToInt(l -> l)
+                .sum();
     }
 
     public void turnOn(Point begin, Point end) {

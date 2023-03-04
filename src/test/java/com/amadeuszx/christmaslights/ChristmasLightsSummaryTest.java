@@ -29,6 +29,6 @@ public class ChristmasLightsSummaryTest {
 //        toggle 831,394 through 904,860
         christmasLights.toggle(new Point(831, 394), new Point(904, 860));
 
-        assertEquals(236944, christmasLights.count());
+        assertEquals(572_292, christmasLights.count());
     }
 }

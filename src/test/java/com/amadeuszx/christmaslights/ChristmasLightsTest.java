@@ -28,10 +28,10 @@ class ChristmasLightsTest {
     }
 
     @Test
-    void turnOnMultipleTimesNothingChange() {
+    void turnOnMultipleTimesSummarise() {
         christmasLights.turnOn(POINT_5_5);
         christmasLights.turnOn(POINT_5_5);
-        assertEquals(1, christmasLights.count());
+        assertEquals(2, christmasLights.count());
     }
 
 
@@ -42,7 +42,7 @@ class ChristmasLightsTest {
     }
 
     @Test
-    void turnOffDisableField() {
+    void turnOffPreviously1Return0() {
         christmasLights.turnOn(POINT_5_5);
         assertEquals(1, christmasLights.count());
 
@@ -51,34 +51,43 @@ class ChristmasLightsTest {
     }
 
     @Test
-    void turnOffMultipleTimesNothingChange() {
+    void turnOffPreviously2Return1() {
+        christmasLights.turnOn(POINT_5_5);
+        christmasLights.turnOn(POINT_5_5);
+        christmasLights.turnOff(POINT_5_5);
+        assertEquals(1, christmasLights.count());
+    }
+
+    @Test
+    void turnOffTwoTimesPreviously1Return0() {
+        christmasLights.turnOn(POINT_5_5);
         christmasLights.turnOff(POINT_5_5);
         christmasLights.turnOff(POINT_5_5);
         assertEquals(0, christmasLights.count());
     }
 
     @Test
-    void toggleWhenWasntSetReturnOne() {
+    void toggleWhenWasntSetReturnTwo() {
         christmasLights.toggle(POINT_5_5);
-        assertEquals(1, christmasLights.count());
+        assertEquals(2, christmasLights.count());
     }
 
     @Test
-    void toggleWhenWasSetToOffReturnOne() {
+    void toggleWhenWasSetToOffReturnTwo() {
         christmasLights.turnOff(POINT_5_5);
         assertEquals(0, christmasLights.count());
 
         christmasLights.toggle(POINT_5_5);
-        assertEquals(1, christmasLights.count());
+        assertEquals(2, christmasLights.count());
     }
 
     @Test
-    void toggleWhenWasSetToOnReturnZero() {
+    void toggleWhenWasSetToOnReturnThree() {
         christmasLights.turnOn(POINT_5_5);
         assertEquals(1, christmasLights.count());
 
         christmasLights.toggle(POINT_5_5);
-        assertEquals(0, christmasLights.count());
+        assertEquals(3, christmasLights.count());
     }
 
     @Test
@@ -101,14 +110,14 @@ class ChristmasLightsTest {
     void toggleRange() {
         turnONRange();
         christmasLights.toggle(new Point(0, 0), new Point(999, 0));
-        assertEquals(999_000, christmasLights.count());
+        assertEquals(1_002_000, christmasLights.count());
     }
 
     @Test
     void toggleTo4() {
         turnOffRange();
         christmasLights.toggle(new Point(0, 0), new Point(999, 999));
-        assertEquals(4, christmasLights.count());
+        assertEquals(2_999_996, christmasLights.count());
     }
 
     private static Stream<Arguments> corners() {
