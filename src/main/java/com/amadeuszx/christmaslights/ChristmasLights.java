@@ -8,6 +8,12 @@ import java.util.Arrays;
 public class ChristmasLights {
     private final Boolean[][] lights = new Boolean[1000][1000];
 
+    public ChristmasLights() {
+        for (Boolean[] b : lights) {
+            Arrays.fill(b, Boolean.FALSE);
+        }
+    }
+
     void turnOn(Point p) {
         lights[p.x()][p.y()] = Boolean.TRUE;
     }
@@ -17,17 +23,13 @@ public class ChristmasLights {
     }
 
     void toggle(Point p) {
-        if (lights[p.x()][p.y()] == null) {
-            lights[p.x()][p.y()] = Boolean.TRUE;
-        } else {
-            lights[p.x()][p.y()] = !lights[p.x()][p.y()];
-        }
+        lights[p.x()][p.y()] = !lights[p.x()][p.y()];
     }
 
     int count() {
         return (int) Arrays.stream(lights)
                 .flatMap(Arrays::stream)
-                .filter(light -> light != null && light)
+                .filter(light -> light)
                 .count();
     }
 }

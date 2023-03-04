@@ -34,11 +34,6 @@ class ChristmasLightsTest {
         assertEquals(1, christmasLights.count());
     }
 
-    @ParameterizedTest
-    @MethodSource("cornersExc")
-    void turnOnIndexOutOfBoudnException(Point point) {
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> christmasLights.turnOn(point));
-    }
 
     @Test
     void turnOffWhenWasntSetReturnZero() {
@@ -60,12 +55,6 @@ class ChristmasLightsTest {
         christmasLights.turnOff(POINT_5_5);
         christmasLights.turnOff(POINT_5_5);
         assertEquals(0, christmasLights.count());
-    }
-
-    @ParameterizedTest
-    @MethodSource("cornersExc")
-    void turnOffIndexOutOfBoudnException(Point point) {
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> christmasLights.turnOff(point));
     }
 
     @Test
@@ -94,8 +83,8 @@ class ChristmasLightsTest {
 
     @ParameterizedTest
     @MethodSource("cornersExc")
-    void toggleIndexOutOfBoudnException(Point point) {
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> christmasLights.toggle(point));
+    void toggleIndexOutOfBoudnException(int x, int y) {
+        assertThrows(IndexOutOfBoundsException.class, () -> new Point(x, y));
     }
 
     private static Stream<Arguments> corners() {
@@ -109,10 +98,10 @@ class ChristmasLightsTest {
 
     private static Stream<Arguments> cornersExc() {
         return Stream.of(
-                Arguments.of(new Point(-1, 0)),
-                Arguments.of(new Point(0, -1)),
-                Arguments.of(new Point(1000, 999)),
-                Arguments.of(new Point(999, 1000))
+                Arguments.of(-1, 0),
+                Arguments.of(0, -1),
+                Arguments.of(1000, 999),
+                Arguments.of(999, 1000)
         );
     }
 }
