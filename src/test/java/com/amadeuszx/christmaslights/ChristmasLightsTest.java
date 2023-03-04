@@ -96,6 +96,14 @@ class ChristmasLightsTest {
         assertEquals(999_996, christmasLights.count());
     }
 
+    @Test
+    @Description("toggle 0,0 through 999,0 would toggle the first line of 1000 lights, turning off the ones that were on, and turning on the ones that were off.")
+    void toggleRange() {
+        turnONRange();
+        christmasLights.toggle(new Point(0, 0), new Point(999, 0));
+        assertEquals(999_000, christmasLights.count());
+    }
+
     private static Stream<Arguments> corners() {
         return Stream.of(
                 Arguments.of(new Point(0, 0)),
