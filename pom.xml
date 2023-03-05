@@ -8,10 +8,13 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <artifactId>codingdojo</artifactId>
     <version>1</version>
     <packaging>jar</packaging>
+
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
         <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -35,15 +38,20 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M9</version>
+            </plugin>
+
+            <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>1.11.1</version>
                 <configuration>
-                <mutators>
-                    <mutator>ALL</mutator>
-
-                </mutators>
-            </configuration>
+                    <mutators>
+                        <mutator>ALL</mutator>
+                    </mutators>
+                </configuration>
             </plugin>
         </plugins>
     </build>

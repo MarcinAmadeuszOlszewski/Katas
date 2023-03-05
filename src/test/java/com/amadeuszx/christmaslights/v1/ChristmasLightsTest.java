@@ -6,9 +6,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ChristmasLightsTest {
 
@@ -91,10 +93,22 @@ class ChristmasLightsTest {
     }
 
     @Test
-    void togglenMultipleTimesSummarise() {
+    void toggleMultipleTimesSummarise() {
         christmasLights.toggle(POINT_5_5, POINT_5_5);
         christmasLights.toggle(POINT_5_5, POINT_5_5);
         assertEquals(4, christmasLights.count());
+    }
+
+    @ParameterizedTest
+    @MethodSource("methods")
+    void missingFirstArg(BiConsumer<Point, Point> method) {
+        assertThrows(IllegalArgumentException.class, () -> method.accept(null, POINT_5_5));
+    }
+
+    @ParameterizedTest
+    @MethodSource("methods")
+    void missingSecondArg(BiConsumer<Point, Point> method) {
+        assertThrows(IllegalArgumentException.class, () -> method.accept(POINT_5_5, null));
     }
 
     @Test
@@ -133,6 +147,15 @@ class ChristmasLightsTest {
                 Arguments.of(new Point(0, 999)),
                 Arguments.of(new Point(999, 0)),
                 Arguments.of(new Point(999, 999))
+        );
+    }
+
+    private static Stream<Arguments> methods() {
+        final ChristmasLights christmasLights = new ChristmasLights();
+        return Stream.of(
+                Arguments.of((BiConsumer<Point, Point>) christmasLights::turnOn),
+                Arguments.of((BiConsumer<Point, Point>) christmasLights::turnOff),
+                Arguments.of((BiConsumer<Point, Point>) christmasLights::toggle)
         );
     }
 }

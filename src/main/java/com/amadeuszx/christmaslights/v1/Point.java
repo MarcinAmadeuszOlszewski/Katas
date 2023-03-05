@@ -1,8 +1,10 @@
 package com.amadeuszx.christmaslights.v1;
 
+import static com.amadeuszx.christmaslights.v1.ChristmasLights.SIZE;
+
 public record Point(int x, int y) {
     public Point {
-        if (x < 0 || x >= 1_000 || y < 0 || y >= 1_000) {
+        if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) {
             throw new IndexOutOfBoundsException();
         }
     }
