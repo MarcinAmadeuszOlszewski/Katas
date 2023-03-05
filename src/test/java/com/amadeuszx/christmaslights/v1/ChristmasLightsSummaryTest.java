@@ -1,4 +1,4 @@
-package com.amadeuszx.christmaslights;
+package com.amadeuszx.christmaslights.v1;
 
 import org.junit.jupiter.api.Test;
 

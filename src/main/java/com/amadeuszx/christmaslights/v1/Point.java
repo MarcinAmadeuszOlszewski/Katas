@@ -1,4 +1,4 @@
-package com.amadeuszx.christmaslights;
+package com.amadeuszx.christmaslights.v1;
 
 public record Point(int x, int y) {
     public Point {

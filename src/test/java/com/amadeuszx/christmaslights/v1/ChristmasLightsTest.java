@@ -1,4 +1,4 @@
-package com.amadeuszx.christmaslights;
+package com.amadeuszx.christmaslights.v1;
 
 import jdk.jfr.Description;
 import org.junit.jupiter.api.Test;
@@ -23,71 +23,78 @@ class ChristmasLightsTest {
     @ParameterizedTest
     @MethodSource("corners")
     void turnOnOneWhichWasOff(Point point) {
-        christmasLights.turnOn(point);
+        christmasLights.turnOn(point, point);
         assertEquals(1, christmasLights.count());
     }
 
     @Test
     void turnOnMultipleTimesSummarise() {
-        christmasLights.turnOn(POINT_5_5);
-        christmasLights.turnOn(POINT_5_5);
+        christmasLights.turnOn(POINT_5_5, POINT_5_5);
+        christmasLights.turnOn(POINT_5_5, POINT_5_5);
         assertEquals(2, christmasLights.count());
     }
 
-
     @Test
     void turnOffWhenWasntSetReturnZero() {
-        christmasLights.turnOff(POINT_5_5);
+        christmasLights.turnOff(POINT_5_5, POINT_5_5);
         assertEquals(0, christmasLights.count());
     }
 
     @Test
     void turnOffPreviously1Return0() {
-        christmasLights.turnOn(POINT_5_5);
+        christmasLights.turnOn(POINT_5_5, POINT_5_5);
         assertEquals(1, christmasLights.count());
 
-        christmasLights.turnOff(POINT_5_5);
+        christmasLights.turnOff(POINT_5_5, POINT_5_5);
         assertEquals(0, christmasLights.count());
     }
 
     @Test
     void turnOffPreviously2Return1() {
-        christmasLights.turnOn(POINT_5_5);
-        christmasLights.turnOn(POINT_5_5);
-        christmasLights.turnOff(POINT_5_5);
+        christmasLights.turnOn(POINT_5_5, POINT_5_5);
+        christmasLights.turnOn(POINT_5_5, POINT_5_5);
+        christmasLights.turnOff(POINT_5_5, POINT_5_5);
         assertEquals(1, christmasLights.count());
     }
 
     @Test
     void turnOffTwoTimesPreviously1Return0() {
-        christmasLights.turnOn(POINT_5_5);
-        christmasLights.turnOff(POINT_5_5);
-        christmasLights.turnOff(POINT_5_5);
+        christmasLights.turnOn(POINT_5_5, POINT_5_5);
+        christmasLights.turnOff(POINT_5_5, POINT_5_5);
+        christmasLights.turnOff(POINT_5_5, POINT_5_5);
         assertEquals(0, christmasLights.count());
-    }
-
-    @Test
-    void toggleWhenWasntSetReturnTwo() {
-        christmasLights.toggle(POINT_5_5);
-        assertEquals(2, christmasLights.count());
     }
 
     @Test
     void toggleWhenWasSetToOffReturnTwo() {
-        christmasLights.turnOff(POINT_5_5);
+        christmasLights.turnOff(POINT_5_5, POINT_5_5);
         assertEquals(0, christmasLights.count());
 
-        christmasLights.toggle(POINT_5_5);
+        christmasLights.toggle(POINT_5_5, POINT_5_5);
         assertEquals(2, christmasLights.count());
     }
 
     @Test
     void toggleWhenWasSetToOnReturnThree() {
-        christmasLights.turnOn(POINT_5_5);
+        christmasLights.turnOn(POINT_5_5, POINT_5_5);
         assertEquals(1, christmasLights.count());
 
-        christmasLights.toggle(POINT_5_5);
+        christmasLights.toggle(POINT_5_5, POINT_5_5);
         assertEquals(3, christmasLights.count());
+    }
+
+    @ParameterizedTest
+    @MethodSource("corners")
+    void toggleOnOneWhichWasOff(Point point) {
+        christmasLights.toggle(point, point);
+        assertEquals(2, christmasLights.count());
+    }
+
+    @Test
+    void togglenMultipleTimesSummarise() {
+        christmasLights.toggle(POINT_5_5, POINT_5_5);
+        christmasLights.toggle(POINT_5_5, POINT_5_5);
+        assertEquals(4, christmasLights.count());
     }
 
     @Test

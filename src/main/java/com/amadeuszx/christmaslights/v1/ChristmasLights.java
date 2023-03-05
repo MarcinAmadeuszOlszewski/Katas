@@ -1,13 +1,16 @@
-package com.amadeuszx.christmaslights;
+package com.amadeuszx.christmaslights.v1;
 
 import java.util.Arrays;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 /**
  * https://kata-log.rocks/christmas-lights-kata
  */
 public class ChristmasLights {
     private final Integer[][] lights = new Integer[1000][1000];
+    private final BiConsumer<Integer, Integer> turnOn = (x, y) -> lights[x][y]++;
+    private final BiConsumer<Integer, Integer> turnOff = (x, y) -> lights[x][y] = Math.max(0, --lights[x][y]);
+    private final BiConsumer<Integer, Integer> toggle = (x, y) -> lights[x][y] += 2;
 
     public ChristmasLights() {
         for (Integer[] b : lights) {
@@ -15,22 +18,7 @@ public class ChristmasLights {
         }
     }
 
-    void turnOn(Point p) {
-        lights[p.x()][p.y()]++;
-    }
-
-    void turnOff(Point p) {
-        lights[p.x()][p.y()]--;
-        if (lights[p.x()][p.y()] < 0) {
-            lights[p.x()][p.y()] = 0;
-        }
-    }
-
-    void toggle(Point p) {
-        lights[p.x()][p.y()] += 2;
-    }
-
-    int count() {
+    public int count() {
         return Arrays.stream(lights)
                 .flatMap(Arrays::stream)
                 .mapToInt(l -> l)
@@ -38,21 +26,21 @@ public class ChristmasLights {
     }
 
     public void turnOn(Point begin, Point end) {
-        iterate(begin, end, this::turnOn);
+        iterate(begin, end, turnOn);
     }
 
     public void turnOff(Point begin, Point end) {
-        iterate(begin, end, this::turnOff);
+        iterate(begin, end, turnOff);
     }
 
     public void toggle(Point begin, Point end) {
-        iterate(begin, end, this::toggle);
+        iterate(begin, end, toggle);
     }
 
-    private void iterate(Point begin, Point end, Consumer<Point> change) {
+    private void iterate(Point begin, Point end, BiConsumer<Integer, Integer> change) {
         for (int x = begin.x(); x <= end.x(); x++) {
             for (int y = begin.y(); y <= end.y(); y++) {
-                change.accept(new Point(x, y));
+                change.accept(x, y);
             }
         }
     }
