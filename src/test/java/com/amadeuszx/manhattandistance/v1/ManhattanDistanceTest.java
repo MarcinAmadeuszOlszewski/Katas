@@ -1,5 +1,6 @@
 package com.amadeuszx.manhattandistance.v1;
 
+import jdk.jfr.Description;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -9,6 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ManhattanDistanceTest {
 
@@ -22,16 +24,11 @@ class ManhattanDistanceTest {
     }
 
     @Test
-    void immutabilityTest() {
-        final Point begin = new Point(12, 6);
-        final Point end = new Point(6, 12);
-        final int distance = manhattanDistance.manhattanDistance(begin, end);
-        assertEquals(12, distance);
-
-        final Point expectedBegin = new Point(12, 6);
-        final Point expectedEnd = new Point(6, 12);
-        assertEquals(expectedBegin, begin);
-        assertEquals(expectedEnd, end);
+    @Description("The class Point has no Getters")
+    void noGetters() {
+        final Point point = new Point(12, 6);
+        assertThrows(UnsupportedOperationException.class, point::x);
+        assertThrows(UnsupportedOperationException.class, point::y);
     }
 
     @Test
