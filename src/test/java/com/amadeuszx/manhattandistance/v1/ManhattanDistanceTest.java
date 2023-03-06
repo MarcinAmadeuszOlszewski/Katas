@@ -47,4 +47,16 @@ class ManhattanDistanceTest {
         assertEquals(2, distance);
     }
 
+    @Test
+    void immutabilityTest() {
+        Point begin = new Point(0, 0);
+        Point end = new Point(1, 1);
+        final int distance = manhattanDistance.manhattanDistance(begin, end);
+        assertEquals(2, distance);
+
+        Point expectedBegin = new Point(0, 0);
+        Point expectedEnd = new Point(1, 1);
+        assertEquals(expectedBegin, begin);
+        assertEquals(expectedEnd, end);
+    }
 }
