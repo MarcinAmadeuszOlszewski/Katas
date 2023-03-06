@@ -1,6 +1,6 @@
 package com.amadeuszx.manhattandistance.v1;
 
-public class Point {
+public final class Point {
     private final int x;
     private final int y;
 
