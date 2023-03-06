@@ -1,6 +1,11 @@
 package com.amadeuszx.manhattandistance.v1;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,55 +13,36 @@ class ManhattanDistanceTest {
 
     private final ManhattanDistance manhattanDistance = new ManhattanDistance();
 
-    @Test
-    void startAndEndSamePlaceReturn0() {
-        Point begin = new Point(0, 0);
-        final int distance = manhattanDistance.manhattanDistance(begin, begin);
-        assertEquals(0, distance);
-    }
-
-    @Test
-    void startAndEndSideBySideXReturn1() {
-        Point begin = new Point(0, 0);
-        Point end = new Point(1, 0);
+    @ParameterizedTest
+    @MethodSource("points")
+    void startAfterEndDiagonallyReturn2(Point begin, Point end, int expected) {
         final int distance = manhattanDistance.manhattanDistance(begin, end);
-        assertEquals(1, distance);
-    }
-
-    @Test
-    void startAndEndSideBySideYReturn1() {
-        Point begin = new Point(0, 0);
-        Point end = new Point(0, 1);
-        final int distance = manhattanDistance.manhattanDistance(begin, end);
-        assertEquals(1, distance);
-    }
-
-    @Test
-    void startAndEndDiagonallyReturn2() {
-        Point begin = new Point(0, 0);
-        Point end = new Point(1, 1);
-        final int distance = manhattanDistance.manhattanDistance(begin, end);
-        assertEquals(2, distance);
-    }
-
-    @Test
-    void startAfterEndDiagonallyReturn2() {
-        Point begin = new Point(1, 1);
-        Point end = new Point(0, 0);
-        final int distance = manhattanDistance.manhattanDistance(begin, end);
-        assertEquals(2, distance);
+        assertEquals(expected, distance);
     }
 
     @Test
     void immutabilityTest() {
-        Point begin = new Point(0, 0);
-        Point end = new Point(1, 1);
+        final Point begin = new Point(0, 0);
+        final Point end = new Point(1, 1);
         final int distance = manhattanDistance.manhattanDistance(begin, end);
         assertEquals(2, distance);
 
-        Point expectedBegin = new Point(0, 0);
-        Point expectedEnd = new Point(1, 1);
+        final Point expectedBegin = new Point(0, 0);
+        final Point expectedEnd = new Point(1, 1);
         assertEquals(expectedBegin, begin);
         assertEquals(expectedEnd, end);
+    }
+
+    private static Stream<Arguments> points() {
+        return Stream.of(
+                Arguments.of(new Point(0, 0), new Point(0, 0), 0),
+                Arguments.of(new Point(0, 0), new Point(1, 0), 1),
+                Arguments.of(new Point(0, 0), new Point(0, 1), 1),
+                Arguments.of(new Point(0, 0), new Point(1, 1), 2),
+                Arguments.of(new Point(1, 1), new Point(0, 0), 2),
+                Arguments.of(new Point(0, 0), new Point(6, 6), 12),
+                Arguments.of(new Point(-1, -1), new Point(0, 0), 2),
+                Arguments.of(new Point(-1, 0), new Point(0, -1), 2)
+        );
     }
 }
