@@ -1,8 +1,9 @@
-package com.amadeuszx.fizzbuzz;
+package com.amadeuszx.fizzbuzz.v1;
 
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FizzBuzzTest {
     private FizzBuzz fizzBuzz;
@@ -30,6 +31,7 @@ class FizzBuzzTest {
         assertEquals("FizzFizz", fizzBuzz.count(3));
         assertEquals("Fizz", fizzBuzz.count(6));
     }
+
     @Test
     @DisplayName("zawiera 3 zwraca Fizz")
     void t3v2() {
@@ -60,7 +62,7 @@ class FizzBuzzTest {
     @Test
     @DisplayName("<1 zwracaja Exception")
     void tBellow1() {
-        Assertions.assertDoesNotThrow( () -> fizzBuzz.count(1));
+        Assertions.assertDoesNotThrow(() -> fizzBuzz.count(1));
         assertThrows(IllegalArgumentException.class, () -> fizzBuzz.count(0));
         assertThrows(IllegalArgumentException.class, () -> fizzBuzz.count(-1));
     }
@@ -68,7 +70,7 @@ class FizzBuzzTest {
     @Test
     @DisplayName(">100 zwracaja Exception")
     void tOver100() {
-        Assertions.assertDoesNotThrow( () -> fizzBuzz.count(100));
+        Assertions.assertDoesNotThrow(() -> fizzBuzz.count(100));
         assertThrows(IllegalArgumentException.class, () -> fizzBuzz.count(101));
         assertThrows(IllegalArgumentException.class, () -> fizzBuzz.count(1002));
     }

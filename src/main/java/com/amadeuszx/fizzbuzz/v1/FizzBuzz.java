@@ -1,4 +1,4 @@
-package com.amadeuszx.fizzbuzz;
+package com.amadeuszx.fizzbuzz.v1;
 
 /**
  * https://codingdojo.org/kata/FizzBuzz/
