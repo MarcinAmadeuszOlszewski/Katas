@@ -21,6 +21,7 @@ class RomanNumeralsTest {
     private static Stream<Arguments> examples() {
         return Stream.of(
                 Arguments.of(1111, "MCXI"),
+                Arguments.of(1387, "MCCCLXXXVII"),
                 Arguments.of(1311, "MCCCXI"),
                 Arguments.of(3333, "MMMCCCXXXIII"),
                 Arguments.of(1000, "M"),
