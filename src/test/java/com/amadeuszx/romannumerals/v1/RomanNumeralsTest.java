@@ -24,8 +24,15 @@ class RomanNumeralsTest {
                 Arguments.of(1311, "MCCCXI"),
                 Arguments.of(3333, "MMMCCCXXXIII"),
                 Arguments.of(1000, "M"),
+                Arguments.of(666, "DCLXVI"),
+                Arguments.of(500, "D"),
                 Arguments.of(100, "C"),
+                Arguments.of(50, "L"),
+                Arguments.of(18, "XVIII"),
                 Arguments.of(10, "X"),
+                Arguments.of(8, "VIII"),
+                Arguments.of(6, "VI"),
+                Arguments.of(5, "V"),
                 Arguments.of(1, "I")
         );
     }
