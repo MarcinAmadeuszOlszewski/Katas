@@ -1,103 +1,36 @@
 package com.amadeuszx.romannumerals.v1;
 
+import java.util.List;
+
 /**
  * https://kata-log.rocks/roman-numerals-kata
  */
 public class RomanNumerals {
 
+    private static final List<StepDefinition> STEPS = List.of(
+            new StepDefinition(1000, "M"),
+            new StepDefinition(900, "CM"),
+            new StepDefinition(500, "D"),
+            new StepDefinition(400, "CD"),
+            new StepDefinition(100, "C"),
+            new StepDefinition(90, "XC"),
+            new StepDefinition(50, "L"),
+            new StepDefinition(40, "XL"),
+            new StepDefinition(10, "X"),
+            new StepDefinition(9, "IX"),
+            new StepDefinition(5, "V"),
+            new StepDefinition(4, "IV"),
+            new StepDefinition(1, "I")
+    );
+
     public String convert(int number) {
-        Step step = new Step("", number);
+        final StringBuilder result = new StringBuilder();
 
-        if (step.getNumber() / 1000 < 4) {
-            step.setResult("M".repeat(step.getNumber() / 1000));
-            step.setNumber(1000);
+        for (StepDefinition def : STEPS) {
+            result.append(def.romanValue().repeat(number / def.factor()));
+            number %= def.factor();
         }
 
-        if (step.getNumber() / 900 == 1) {
-            step.setResult("CM".repeat(step.getNumber() / 900));
-            step.setNumber(900);
-        }
-
-        if (step.getNumber() / 500 == 1) {
-            step.setResult("D".repeat(step.getNumber() / 500));
-            step.setNumber(500);
-        }
-
-        if (step.getNumber() / 400 == 1) {
-            step.setResult("CD".repeat(step.getNumber() / 400));
-            step.setNumber(400);
-        }
-
-        if (step.getNumber() / 100 < 4) {
-            step.setResult("C".repeat(step.getNumber() / 100));
-            step.setNumber(100);
-        }
-
-        if (step.getNumber() / 90 == 1) {
-            step.setResult("XC".repeat(step.getNumber() / 90));
-            step.setNumber(90);
-        }
-
-        if (step.getNumber() / 50 == 1) {
-            step.setResult("L".repeat(step.getNumber() / 50));
-            step.setNumber(50);
-        }
-
-        if (step.getNumber() / 40 == 1) {
-            step.setResult("XL".repeat(step.getNumber() / 40));
-            step.setNumber(40);
-        }
-
-        if (step.getNumber() / 10 < 4) {
-            step.setResult("X".repeat(step.getNumber() / 10));
-            step.setNumber(10);
-        }
-
-        if (step.getNumber() / 9 == 1) {
-            step.setResult("IX".repeat(step.getNumber() / 9));
-            step.setNumber(9);
-        }
-
-        if (step.getNumber() / 5 == 1) {
-            step.setResult("V".repeat(step.getNumber() / 5));
-            step.setNumber(5);
-        }
-
-        if (step.getNumber() / 4 == 1) {
-            step.setResult("IV".repeat(step.getNumber() / 4));
-            step.setNumber(4);
-        }
-
-        if (step.getNumber() < 4) {
-            step.setResult("I".repeat(step.getNumber()));
-        }
-
-        return step.getResult();
-    }
-
-    private static class Step {
-        private String result;
-        private int number;
-
-        public Step(String result, int number) {
-            this.result = result;
-            this.number = number;
-        }
-
-        public String getResult() {
-            return result;
-        }
-
-        public void setResult(String result) {
-            this.result += result;
-        }
-
-        public int getNumber() {
-            return number;
-        }
-
-        public void setNumber(int modulo) {
-            this.number %= modulo;
-        }
+        return result.toString();
     }
 }

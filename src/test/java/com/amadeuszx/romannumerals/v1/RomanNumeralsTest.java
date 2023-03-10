@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RomanNumeralsTest {
+
     private final RomanNumerals converter = new RomanNumerals();
 
     @ParameterizedTest
