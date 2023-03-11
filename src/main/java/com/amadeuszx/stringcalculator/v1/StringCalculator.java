@@ -1,5 +1,7 @@
 package com.amadeuszx.stringcalculator.v1;
 
+import java.util.Arrays;
+
 /**
  * https://kata-log.rocks/string-calculator-kata
  */
@@ -7,14 +9,8 @@ public class StringCalculator {
 
     public int add(String s) {
         final String[] split = s.split(",");
-        if (split.length == 0) {
-            return 0;
-        }
-        if (split.length == 1) {
-            return getParseInt(split[0]);
-        }
 
-        return getParseInt(split[0]) + getParseInt(split[1]);
+        return Arrays.stream(split).mapToInt(StringCalculator::getParseInt).sum();
     }
 
     private static int getParseInt(String splitted) {
