@@ -13,4 +13,28 @@ class StringCalculatorTest {
         assertEquals(0, result);
     }
 
+    @Test
+    void addStringWithOnlyCommaReturn0() {
+        final int result = stringCalculator.add(",");
+        assertEquals(0, result);
+    }
+
+    @Test
+    void addStringWithCommaAndNumberReturnNumber() {
+        final int result = stringCalculator.add(",1");
+        assertEquals(1, result);
+    }
+
+    @Test
+    void addStringWithNumberAndCommaReturnNumber() {
+        final int result = stringCalculator.add("1,");
+        assertEquals(1, result);
+    }
+
+    @Test
+    void addStringWithNumberAndNumberReturnNumber() {
+        final int result = stringCalculator.add("1,1");
+        assertEquals(2, result);
+    }
+
 }
