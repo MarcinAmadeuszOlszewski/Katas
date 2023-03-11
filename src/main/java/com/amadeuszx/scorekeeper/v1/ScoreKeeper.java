@@ -4,8 +4,8 @@ package com.amadeuszx.scorekeeper.v1;
  * https://kata-log.rocks/score-keeper-kata
  */
 public class ScoreKeeper {
-    private int teamA = 0;
-    private int teamB = 0;
+    private int teamA;
+    private int teamB;
 
     public String getScore() {
         final int tmpA = Math.min(teamA, 999);
