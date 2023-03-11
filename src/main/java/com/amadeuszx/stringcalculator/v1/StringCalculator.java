@@ -8,7 +8,10 @@ import java.util.Arrays;
 public class StringCalculator {
 
     public int add(String s) {
-        final String[] split = s.split(",");
+        final String[] split = s
+                .replace("\n", ",")
+                .replace("\\n", ",")
+                .split(",");
 
         return Arrays.stream(split).mapToInt(StringCalculator::getParseInt).sum();
     }

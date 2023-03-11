@@ -48,4 +48,20 @@ class StringCalculatorTest {
                 Arguments.of(" ,2,x", 2)
         );
     }
+
+    @ParameterizedTest
+    @MethodSource("examplesStep3")
+    void addStep3(String input, int expected) {
+        final int result = stringCalculator.add(input);
+        assertEquals(expected, result);
+    }
+
+    public static Stream<Arguments> examplesStep3() {
+        return Stream.of(
+                Arguments.of("1\\n2,3", 6),
+                Arguments.of("1,\\n", 1),
+                Arguments.of("1,1\n1", 3),
+                Arguments.of("-9\n-9,-9\\n-9", -36)
+        );
+    }
 }
