@@ -1,40 +1,34 @@
 package com.amadeuszx.stringcalculator.v1;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StringCalculatorTest {
     private final StringCalculator stringCalculator = new StringCalculator();
 
-    @Test
-    void addEmptyStringReturn0() {
-        final int result = stringCalculator.add("");
-        assertEquals(0, result);
+
+    @ParameterizedTest
+    @MethodSource("examplesStep1")
+    void addStep1(String input, int expected) {
+        final int result = stringCalculator.add(input);
+        assertEquals(expected, result);
     }
 
-    @Test
-    void addStringWithOnlyCommaReturn0() {
-        final int result = stringCalculator.add(",");
-        assertEquals(0, result);
+    public static Stream<Arguments> examplesStep1() {
+        return Stream.of(
+                Arguments.of("", 0),
+                Arguments.of(",", 0),
+                Arguments.of(",1", 1),
+                Arguments.of("1,", 1),
+                Arguments.of("1,1", 2),
+                Arguments.of("-9,-9", -18),
+                Arguments.of("x,2", 2),
+                Arguments.of("2,x", 2)
+        );
     }
-
-    @Test
-    void addStringWithCommaAndNumberReturnNumber() {
-        final int result = stringCalculator.add(",1");
-        assertEquals(1, result);
-    }
-
-    @Test
-    void addStringWithNumberAndCommaReturnNumber() {
-        final int result = stringCalculator.add("1,");
-        assertEquals(1, result);
-    }
-
-    @Test
-    void addStringWithNumberAndNumberReturnNumber() {
-        final int result = stringCalculator.add("1,1");
-        assertEquals(2, result);
-    }
-
 }
