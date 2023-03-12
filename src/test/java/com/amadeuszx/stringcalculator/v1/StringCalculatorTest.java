@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class StringCalculatorTest {
     private final StringCalculator stringCalculator = new StringCalculator();
@@ -25,7 +26,6 @@ class StringCalculatorTest {
                 Arguments.of(",1", 1),
                 Arguments.of("1,", 1),
                 Arguments.of("1,1", 2),
-                Arguments.of("-9,-9", -18),
                 Arguments.of("x,2", 2),
                 Arguments.of("2,x", 2)
         );
@@ -43,7 +43,6 @@ class StringCalculatorTest {
                 Arguments.of(",,", 0),
                 Arguments.of(",,1", 1),
                 Arguments.of("1,1,1", 3),
-                Arguments.of("-9,-9,9", -9),
                 Arguments.of("x,2, ", 2),
                 Arguments.of(" ,2,x", 2)
         );
@@ -60,8 +59,7 @@ class StringCalculatorTest {
         return Stream.of(
                 Arguments.of("1\\n2,3", 6),
                 Arguments.of("1,\\n", 1),
-                Arguments.of("1,1\n1", 3),
-                Arguments.of("-9\n-9,-9\\n-9", -36)
+                Arguments.of("1,1\n1", 3)
         );
     }
 
@@ -75,7 +73,24 @@ class StringCalculatorTest {
     public static Stream<Arguments> examplesStep4() {
         return Stream.of(
                 Arguments.of("//d\n1d2d3", 6),
-                Arguments.of("//;\\n1;2", 3)
+                Arguments.of("//;\\n1;2", 3),
+                Arguments.of("//,\\n1,2", 3),
+                Arguments.of("//xx\\n1,2\n3\\n4xx5", 15)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("examplesStep5")
+    void addStep5(String input, String expected) {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> stringCalculator.add(input));
+        assertEquals(expected, exception.getMessage());
+    }
+
+    public static Stream<Arguments> examplesStep5() {
+        return Stream.of(
+                Arguments.of("//d\n-1d2d3", "negatives not allowed -1"),
+                Arguments.of("\\n-1,3,-2", "negatives not allowed -1, -2"),
+                Arguments.of("\\n-1,-2", "negatives not allowed -1, -2")
         );
     }
 }
