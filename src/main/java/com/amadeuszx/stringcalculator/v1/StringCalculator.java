@@ -43,6 +43,10 @@ public class StringCalculator {
     }
 
     private String findDelimiter(String s) {
+        if (s.startsWith("//[")) {
+            return s.replace("//[", "")
+                    .split("],")[0];
+        }
         if (s.startsWith("//")) {
             return s.replace("//", "")
                     .split(",")[0];

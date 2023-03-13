@@ -94,7 +94,6 @@ class StringCalculatorTest {
         );
     }
 
-
     @ParameterizedTest
     @MethodSource("examplesStep6")
     void addStep6(String input, int expected) {
@@ -106,6 +105,19 @@ class StringCalculatorTest {
         return Stream.of(
                 Arguments.of("1001,2", 2),
                 Arguments.of("1001,1000", 1_000)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("examplesStep7")
+    void addStep7(String input, int expected) {
+        final int result = stringCalculator.add(input);
+        assertEquals(expected, result);
+    }
+
+    public static Stream<Arguments> examplesStep7() {
+        return Stream.of(
+                Arguments.of("//[***]\n1***2***3", 6)
         );
     }
 }
