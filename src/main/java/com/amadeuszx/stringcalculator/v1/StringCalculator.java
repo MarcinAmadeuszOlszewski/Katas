@@ -19,7 +19,10 @@ public class StringCalculator {
 
         handleNegativeNumbers(converted);
 
-        return converted.stream().mapToInt(i -> i).sum();
+        return converted.stream()
+                .filter(i -> i <= 1_000)
+                .mapToInt(i -> i)
+                .sum();
     }
 
     private void handleNegativeNumbers(List<Integer> converted) {
