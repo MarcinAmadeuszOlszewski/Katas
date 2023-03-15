@@ -133,4 +133,17 @@ class StringCalculatorTest {
                 Arguments.of("//[*][%]\n1*2%3", 6)
         );
     }
+
+    @ParameterizedTest
+    @MethodSource("examplesStep9")
+    void addStep9(String input, int expected) {
+        final int result = stringCalculator.add(input);
+        assertEquals(expected, result);
+    }
+
+    public static Stream<Arguments> examplesStep9() {
+        return Stream.of(
+                Arguments.of("//[**][%%%][;;;;]\n1**2%%%3;;;;4", 10)
+        );
+    }
 }
