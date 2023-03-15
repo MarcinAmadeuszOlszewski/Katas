@@ -34,24 +34,26 @@ public class StringCalculator {
     }
 
     private String handleNewDelimiter(String s) {
-        String delimiter = findDelimiter(s);
+        List<String> delimiter = findDelimiter(s);
         if (!delimiter.isEmpty()) {
-            s = s.substring(s.indexOf(","))
-                    .replace(delimiter, ",");
+            s = s.substring(s.indexOf(","));
+            for (String d : delimiter) {
+                s = s.replace(d, ",");
+            }
         }
         return s;
     }
 
-    private String findDelimiter(String s) {
+    private List<String> findDelimiter(String s) {
         if (s.startsWith("//[")) {
-            return s.replace("//[", "")
-                    .split("],")[0];
+            final String delimiters = s.substring(3, s.indexOf("],"));
+            return Arrays.asList(delimiters.split("]\\["));
         }
         if (s.startsWith("//")) {
-            return s.replace("//", "")
-                    .split(",")[0];
+            return List.of(s.replace("//", "")
+                    .split(",")[0]);
         }
-        return "";
+        return List.of();
     }
 
     private static int getParseInt(String splitted) {
