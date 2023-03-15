@@ -19,10 +19,7 @@ public class StringCalculator {
 
         handleNegativeNumbers(converted);
 
-        return converted.stream()
-                .filter(i -> i <= 1_000)
-                .mapToInt(i -> i)
-                .sum();
+        return getSumFromNumberLessThan1k(converted);
     }
 
     private static String unifyDelimiters(String toAdd) {
@@ -40,14 +37,11 @@ public class StringCalculator {
         return List.of();
     }
 
-    private static String replaceDelimitersByDefaultValue(String s, List<String> delimiters) {
-        if (!delimiters.isEmpty()) {
-            s = s.substring(s.indexOf(","));
-            for (String d : delimiters) {
-                s = s.replace(d, ",");
-            }
+    private static String replaceDelimitersByDefaultValue(String unifiedDelimiters, List<String> delimiters) {
+        for (String d : delimiters) {
+            unifiedDelimiters = unifiedDelimiters.replace(d, ",");
         }
-        return s;
+        return unifiedDelimiters;
     }
 
     private static List<Integer> convertToNumbers(String normalised) {
@@ -58,7 +52,7 @@ public class StringCalculator {
     private static int getParseInt(String splitted) {
         try {
             return Integer.parseInt(splitted);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return 0;
         }
     }
@@ -69,5 +63,12 @@ public class StringCalculator {
             final String toException = illegals.stream().map(Object::toString).collect(Collectors.joining(", "));
             throw new IllegalArgumentException("negatives not allowed " + toException);
         }
+    }
+
+    private static int getSumFromNumberLessThan1k(List<Integer> converted) {
+        return converted.stream()
+                .filter(i -> i <= 1_000)
+                .mapToInt(i -> i)
+                .sum();
     }
 }
