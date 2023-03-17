@@ -33,8 +33,12 @@ public class Lift {
             }
         }
 
-        out.append("Done!");
+        out.append("DING!");
 
         return out.toString();
+    }
+
+    public String doorState() {
+        return null;
     }
 }
