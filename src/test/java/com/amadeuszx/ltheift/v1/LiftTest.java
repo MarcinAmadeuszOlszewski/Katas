@@ -17,7 +17,7 @@ class LiftTest {
      * !a lift delivers passengers to requested floors
      * ! you may implement current floor monitor
      * you may implement direction arrows
-     * you may implement doors (opening and closing)
+     * !you may implement doors (opening and closing)
      * !you may implement DING!
      * there can be more than one lift
      */
