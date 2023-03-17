@@ -18,7 +18,7 @@ class LiftTest {
      * ! you may implement current floor monitor
      * you may implement direction arrows
      * you may implement doors (opening and closing)
-     * you may implement DING!
+     * !you may implement DING!
      * there can be more than one lift
      */
     private final Lift lift = new Lift();
@@ -56,9 +56,9 @@ class LiftTest {
 
     private static Stream<Arguments> points() {
         return Stream.of(
-                Arguments.of(5, 3, "Moving...\n4\nMoving...\n3\nDone!"),
-                Arguments.of(3, 5, "Moving...\n4\nMoving...\n5\nDone!"),
-                Arguments.of(4, 4, "Done!")
+                Arguments.of(5, 3, "Moving...\n4\nMoving...\n3\nDING!"),
+                Arguments.of(3, 5, "Moving...\n4\nMoving...\n5\nDING!"),
+                Arguments.of(4, 4, "DING!")
         );
     }
 }
