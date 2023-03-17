@@ -39,7 +39,15 @@ class LiftTest {
         lift.setFloor(5);
         lift.setDestination(3);
         final String moveInformation = lift.showMoveInformation();
-        assertEquals("2 floors down from 5 to 3", moveInformation);
+        assertEquals(moving3to2Floors(), moveInformation);
+    }
+
+    private static String moving3to2Floors() {
+        return """
+                2 floors down from 5 to 3
+                Moving...
+                Moving...
+                Done!""";
     }
 
 }
