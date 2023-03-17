@@ -39,6 +39,8 @@ public class Lift {
     }
 
     public String doorState() {
-        return null;
+        return currentFloor == destination
+                ? "Door open."
+                : "Door closed.";
     }
 }
