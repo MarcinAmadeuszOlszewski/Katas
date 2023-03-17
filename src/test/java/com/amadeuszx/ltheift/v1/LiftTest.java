@@ -2,6 +2,11 @@ package com.amadeuszx.ltheift.v1;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,26 +33,32 @@ class LiftTest {
     @Test
     @DisplayName("a lift has an attribute floor, which describes it’s current location")
     void liftFloorState() {
-        lift.setFloor(5);
+        lift.setCurrentFloor(5);
         final String currentFloor = lift.showCurrentFloor();
         assertEquals("5", currentFloor);
     }
 
-    @Test
+    @ParameterizedTest
+    @MethodSource("points")
     @DisplayName("a lift delivers passengers to requested floors")
-    void deliveryInformation() {
-        lift.setFloor(5);
-        lift.setDestination(3);
+    void deliveryInformation(int current, int destination, String expected) {
+        lift.setCurrentFloor(current);
+        lift.setDestination(destination);
         final String moveInformation = lift.showMoveInformation();
-        assertEquals(moving3to2Floors(), moveInformation);
+        System.err.println(moveInformation);
+        System.err.println();
+        assertEquals(expected, moveInformation);
     }
 
     private static String moving3to2Floors() {
-        return """
-                2 floors down from 5 to 3
-                Moving...
-                Moving...
-                Done!""";
+        return "Moving...\n4\nMoving...\n3\nDone!";
     }
 
+    private static Stream<Arguments> points() {
+        return Stream.of(
+                Arguments.of(5, 3, "Moving...\n4\nMoving...\n3\nDone!"),
+                Arguments.of(3, 5, "Moving...\n4\nMoving...\n5\nDone!"),
+                Arguments.of(4, 4, "Done!")
+        );
+    }
 }
