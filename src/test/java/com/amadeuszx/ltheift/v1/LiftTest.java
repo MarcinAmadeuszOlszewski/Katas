@@ -43,6 +43,7 @@ class LiftTest {
         lift.setDestination(destination);
         final String moveInformation = lift.showMoveInformation();
         assertEquals(expected, moveInformation);
+        assertEquals(destination, lift.getCurrentFloor());
     }
 
     @ParameterizedTest
@@ -58,6 +59,8 @@ class LiftTest {
     private static Stream<Arguments> move() {
         return Stream.of(
                 Arguments.of(5, 3, "Moving...\n4\nMoving...\n3\nDING!"),
+                Arguments.of(3, 4, "Moving...\n4\nDING!"),
+                Arguments.of(4, 3, "Moving...\n3\nDING!"),
                 Arguments.of(3, 5, "Moving...\n4\nMoving...\n5\nDING!"),
                 Arguments.of(4, 4, "DING!")
         );

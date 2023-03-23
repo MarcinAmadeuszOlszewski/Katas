@@ -1,5 +1,7 @@
 package com.amadeuszx.ltheift.v1;
 
+import java.util.stream.IntStream;
+
 /**
  * https://kata-log.rocks/lift-kata
  */
@@ -9,6 +11,10 @@ public class Lift {
 
     public String showCurrentFloor() {
         return String.valueOf(currentFloor);
+    }
+
+    int getCurrentFloor() {
+        return currentFloor;
     }
 
     public void setCurrentFloor(int currentFloor) {
@@ -21,18 +27,16 @@ public class Lift {
 
     public String showMoveInformation() {
         StringBuilder out = new StringBuilder();
-        if (currentFloor > destination) {
-            currentFloor--;
-            for (; currentFloor >= destination; currentFloor--) {
-                out.append("Moving...\n").append(showCurrentFloor()).append("\n");
-            }
-        } else if (currentFloor < destination) {
-            currentFloor++;
-            for (; currentFloor <= destination; currentFloor++) {
-                out.append("Moving...\n").append(showCurrentFloor()).append("\n");
-            }
+
+        if (currentFloor < destination) {
+            IntStream.range(currentFloor + 1, destination + 1)
+                    .forEachOrdered(i -> out.append("Moving...\n").append(i).append("\n"));
+        } else if (currentFloor > destination) {
+            IntStream.iterate(currentFloor - 1, i -> i - 1).limit(currentFloor - destination)
+                    .forEachOrdered(i -> out.append("Moving...\n").append(i).append("\n"));
         }
 
+        currentFloor = destination;
         out.append("DING!");
 
         return out.toString();
