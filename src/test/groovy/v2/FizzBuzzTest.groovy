@@ -5,19 +5,27 @@ import spock.lang.Specification
 
 class FizzBuzzTest extends Specification {
 
-    def "one return one"() {
-        given:
-        var fizzBuzz = new FizzBuzz()
+    def "numbers that don't change"(int number, String expected) {
+        expect:
+        FizzBuzz.count(number) == expected
 
-        when:
-        var result = fizzBuzz.count(1)
-
-        then:
-        result == "1"
+        where:
+        number | expected
+        1      | 1
+        2      | 2
+        4      | 4
+        6      | 6
     }
 
-    def "two return two"() {
+    def "numbers that fizz"(int number, String expected) {
         expect:
-        FizzBuzz.count(2) == "2"
+        FizzBuzz.count(number) == expected
+
+        where:
+        number | expected
+        3      | "fizz"
+        6      | "fizz"
+        9      | "fizz"
+        12     | "fizz"
     }
 }
