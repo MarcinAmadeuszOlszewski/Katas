@@ -14,7 +14,7 @@ class FizzBuzzTest extends Specification {
         1      | 1
         2      | 2
         4      | 4
-        6      | 6
+        7      | 7
     }
 
     def "numbers that fizz"(int number, String expected) {
@@ -27,5 +27,17 @@ class FizzBuzzTest extends Specification {
         6      | "fizz"
         9      | "fizz"
         12     | "fizz"
+    }
+
+    def "numbers that buzz"(int number, String expected) {
+        expect:
+        FizzBuzz.count(number) == expected
+
+        where:
+        number | expected
+        5      | "buzz"
+        10     | "buzz"
+        20     | "buzz"
+        25     | "buzz"
     }
 }
