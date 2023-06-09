@@ -1,6 +1,6 @@
-package v2
+package com.amadeuszx.fizzbuzz.v2
 
-import com.amadeuszx.fizzbuzz.v2.FizzBuzz
+
 import spock.lang.Specification
 
 class FizzBuzzTest extends Specification {
