@@ -5,7 +5,7 @@ import spock.lang.Specification
 
 class FizzBuzzTest extends Specification {
 
-    def "numbers that don't change"(int number, String expected) {
+    def "numbers examples"(int number, String expected) {
         expect:
         FizzBuzz.count(number) == expected
 
@@ -13,41 +13,17 @@ class FizzBuzzTest extends Specification {
         number | expected
         1      | 1
         2      | 2
-        4      | 4
-        7      | 7
-    }
-
-    def "numbers that fizz"(int number, String expected) {
-        expect:
-        FizzBuzz.count(number) == expected
-
-        where:
-        number | expected
         3      | "fizz"
-        6      | "fizz"
-        9      | "fizz"
-        12     | "fizz"
-    }
-
-    def "numbers that buzz"(int number, String expected) {
-        expect:
-        FizzBuzz.count(number) == expected
-
-        where:
-        number | expected
+        4      | 4
         5      | "buzz"
+        6      | "fizz"
+        7      | 7
+        9      | "fizz"
         10     | "buzz"
+        12     | "fizz"
+        15     | "fizzbuzz"
         20     | "buzz"
         25     | "buzz"
-    }
-
-    def "numbers that fizz-buzz"(int number, String expected) {
-        expect:
-        FizzBuzz.count(number) == expected
-
-        where:
-        number | expected
-        15     | "fizzbuzz"
         30     | "fizzbuzz"
         90     | "fizzbuzz"
     }
