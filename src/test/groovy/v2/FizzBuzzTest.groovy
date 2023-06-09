@@ -51,4 +51,20 @@ class FizzBuzzTest extends Specification {
         30     | "fizzbuzz"
         90     | "fizzbuzz"
     }
+
+    def "illegal numbers"(int number, String expected) {
+        when:
+        FizzBuzz.count(number) == expected
+
+        then:
+        def e = thrown IllegalArgumentException
+        e.message == expected
+
+        where:
+        number | expected
+        0      | "number should be between 1 and 100"
+        -1     | "number should be between 1 and 100"
+        101    | "number should be between 1 and 100"
+        102    | "number should be between 1 and 100"
+    }
 }
