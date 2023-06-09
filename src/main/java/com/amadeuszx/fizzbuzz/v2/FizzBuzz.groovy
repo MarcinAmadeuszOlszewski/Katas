@@ -6,12 +6,17 @@ package com.amadeuszx.fizzbuzz.v2
 class FizzBuzz {
 
     static String count(var number) {
+
+        var result = ""
         if (number % 3 == 0) {
-            return "fizz"
+            result += "fizz"
         }
         if (number % 5 == 0) {
-            return "buzz"
+            result += "buzz"
         }
-        number
+        if (result.isEmpty()) {
+            result += number
+        }
+        result
     }
 }

@@ -40,4 +40,15 @@ class FizzBuzzTest extends Specification {
         20     | "buzz"
         25     | "buzz"
     }
+
+    def "numbers that fizz-buzz"(int number, String expected) {
+        expect:
+        FizzBuzz.count(number) == expected
+
+        where:
+        number | expected
+        15     | "fizzbuzz"
+        30     | "fizzbuzz"
+        90     | "fizzbuzz"
+    }
 }
